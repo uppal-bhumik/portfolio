@@ -50,7 +50,7 @@ export default function Hero() {
               AI/ML Developer
             </p>
 
-            {/* CTA Buttons - Now positioned where skill tags were */}
+            {/* CTA Buttons */}
             <div className={`flex gap-4 justify-center lg:justify-start flex-wrap transition-all duration-1000 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               
                 href="#contact"
@@ -87,7 +87,7 @@ export default function Hero() {
                   viewBox="0 0 24 24" 
                   stroke="currentColor"
                 >
-                  <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
                 Resume
               </a>
@@ -109,7 +109,7 @@ export default function Hero() {
             viewBox="0 0 24 24" 
             stroke="currentColor"
           >
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
         </div>
       </div>
