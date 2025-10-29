@@ -31,7 +31,7 @@ export default function Hero() {
                 <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-slate-700 overflow-hidden">
                   {/* Replace with your actual photo */}
                   <img
-                    src="/profile.jpg"
+                    src="/profile.JPG"
                     alt="Bhumik Uppal"
                     className="w-full h-full object-cover"
                   />
@@ -97,7 +97,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className={`absolute bottom-16 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-800 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`absolute bottom-20 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-800 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
         <div className="flex flex-col items-center gap-2 text-slate-500">
           <span className="text-xs uppercase tracking-widest">Scroll to explore</span>
           <svg 
@@ -137,3 +137,4 @@ export default function Hero() {
     </main>
   );
 }
+
