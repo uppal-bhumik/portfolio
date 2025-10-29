@@ -33,7 +33,7 @@ export default function Hero() {
                   <img
                     src="/profile.JPG"
                     alt="Bhumik Uppal"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-bottom"
                   />
                 </div>
               </div>
@@ -127,3 +127,4 @@ export default function Hero() {
     </main>
   );
 }
+
