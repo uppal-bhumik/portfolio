@@ -31,7 +31,7 @@ export default function Hero() {
                 <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-slate-700 overflow-hidden">
                   {/* Replace with your actual photo */}
                   <img
-                    src="/profile.jpg"
+                    src="/profile.JPG"
                     alt="Bhumik Uppal"
                     className="w-full h-full object-cover"
                   />
