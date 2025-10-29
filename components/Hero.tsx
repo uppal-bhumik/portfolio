@@ -50,9 +50,9 @@ export default function Hero() {
               AI/ML Developer
             </p>
 
-            {/* CTA Buttons - Now positioned where skill tags were */}
+            {/* CTA Buttons - Now in place of skill tags */}
             <div className={`flex gap-4 justify-center lg:justify-start flex-wrap transition-all duration-1000 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              
+              <a
                 href="#contact"
                 className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
                 onClick={(e) => {
@@ -62,7 +62,7 @@ export default function Hero() {
               >
                 Get In Touch
               </a>
-              
+              <a
                 href="#projects"
                 className="px-6 py-3 rounded-full bg-slate-800/50 border border-slate-700 text-white font-medium hover:border-blue-500/50 hover:bg-slate-800 transition-all duration-300"
                 onClick={(e) => {
@@ -72,7 +72,7 @@ export default function Hero() {
               >
                 View Projects
               </a>
-              
+              <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
