@@ -31,7 +31,7 @@ export default function Hero() {
                 <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-slate-700 overflow-hidden">
                   {/* Replace with your actual photo */}
                   <img
-                    src="/profile.JPG"
+                    src="/profile.jpg"
                     alt="Bhumik Uppal"
                     className="w-full h-full object-cover"
                   />
@@ -49,22 +49,10 @@ export default function Hero() {
             <p className="text-xl md:text-2xl lg:text-3xl text-slate-300 font-light tracking-wide">
               AI/ML Developer
             </p>
-            
-            <div className={`flex gap-2 justify-center lg:justify-start flex-wrap transition-all duration-1000 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <span className="px-4 py-2 text-sm md:text-base rounded-full bg-slate-800/50 border border-slate-700 hover:border-blue-500/50 hover:bg-slate-800/70 transition-all duration-300 cursor-default hover:scale-105">
-                Generative AI
-              </span>
-              <span className="px-4 py-2 text-sm md:text-base rounded-full bg-slate-800/50 border border-slate-700 hover:border-purple-500/50 hover:bg-slate-800/70 transition-all duration-300 cursor-default hover:scale-105">
-                Computer Vision
-              </span>
-              <span className="px-4 py-2 text-sm md:text-base rounded-full bg-slate-800/50 border border-slate-700 hover:border-pink-500/50 hover:bg-slate-800/70 transition-all duration-300 cursor-default hover:scale-105">
-                MLOps
-              </span>
-            </div>
 
-            {/* CTA Buttons */}
-            <div className={`flex gap-4 justify-center lg:justify-start flex-wrap transition-all duration-1000 delay-600 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <a
+            {/* CTA Buttons - Now positioned where skill tags were */}
+            <div className={`flex gap-4 justify-center lg:justify-start flex-wrap transition-all duration-1000 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              
                 href="#contact"
                 className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
                 onClick={(e) => {
@@ -74,7 +62,7 @@ export default function Hero() {
               >
                 Get In Touch
               </a>
-              <a
+              
                 href="#projects"
                 className="px-6 py-3 rounded-full bg-slate-800/50 border border-slate-700 text-white font-medium hover:border-blue-500/50 hover:bg-slate-800 transition-all duration-300"
                 onClick={(e) => {
@@ -84,7 +72,7 @@ export default function Hero() {
               >
                 View Projects
               </a>
-              <a
+              
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
