@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* Force dark mode styles even in light mode */
+:root, 
+html,
+html.light,
+html:not(.dark) {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,15 +21,35 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: #0a0a0a;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+/* Force dark backgrounds on common elements */
+* {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Optional: Add these custom utilities if you need them */
+.text-gradient-custom {
+  background: linear-gradient(to right, #FF0080, #00BFFF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient-custom-button {
+  background: linear-gradient(to right, #00BFFF, #8A2BE2);
+  transition: all 0.3s ease;
+}
+
+.bg-gradient-custom-button:hover {
+  opacity: 0.9;
 }
