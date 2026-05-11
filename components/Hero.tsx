@@ -33,7 +33,7 @@ export default function Hero() {
                   <img
                     src="/profile.JPG"
                     alt="Bhumik Uppal"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-bottom"
                   />
                 </div>
               </div>
@@ -50,28 +50,8 @@ export default function Hero() {
               Applied AI Engineer — Backend Systems
             </p>
 
-            {/* CTA Buttons - Now in place of skill tags */}
+            {/* CTA Buttons */}
             <div className={`flex gap-4 justify-center lg:justify-start flex-wrap transition-all duration-1000 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <a
-                href="#contact"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Get In Touch
-              </a>
-              <a
-                href="#projects"
-                className="px-6 py-3 rounded-full bg-slate-800/50 border border-slate-700 text-white font-medium hover:border-blue-500/50 hover:bg-slate-800 transition-all duration-300"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                View Projects
-              </a>
               <a
                 href="/bhumik_resume.pdf"
                 target="_blank"
@@ -91,13 +71,23 @@ export default function Hero() {
                 </svg>
                 Resume
               </a>
+              <a
+                href="#contact"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Get In Touch
+              </a>
             </div>
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className={`absolute bottom-2 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-800 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-800 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
         <div className="flex flex-col items-center gap-2 text-slate-500">
           <span className="text-xs uppercase tracking-widest">Scroll to explore</span>
           <svg 
@@ -137,5 +127,3 @@ export default function Hero() {
     </main>
   );
 }
-
-
