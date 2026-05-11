@@ -6,8 +6,8 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Bhumik Uppal - AI/ML Developer",
-  description: "Personal portfolio of Bhumik Uppal, an AI/ML Developer specializing in Generative AI, Computer Vision, and MLOps.",
+  title: "Bhumik Uppal - Applied AI Engineer",
+  description: "Applied AI Engineer building end-to-end systems combining full-stack development, AI capabilities, and scalable deployment. Published researcher with a background in computer vision, machine learning, and IoT systems.",
 };
 
 export default function RootLayout({

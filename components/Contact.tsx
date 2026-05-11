@@ -47,7 +47,7 @@ export default function Contact() {
       icon: FiLinkedin,
       label: "LinkedIn",
       value: "linkedin.com/in/bhumik-uppal",
-      href: "https://www.linkedin.com/in/bhumik-uppal-74a70724b/",
+      href: "https://www.linkedin.com/in/bhumik-uppal/",
       color: "from-blue-400 to-cyan-400",
       external: true
     },
@@ -182,7 +182,7 @@ export default function Contact() {
                   </a>
                   
                   <a
-                    href="https://www.linkedin.com/in/bhumik-uppal-74a70724b/"
+                    href="https://www.linkedin.com/in/bhumik-uppal/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full px-6 py-4 text-center rounded-xl bg-slate-800/50 border border-slate-700 text-white font-semibold hover:border-blue-500/50 hover:bg-slate-800 transition-all duration-300"

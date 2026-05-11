@@ -29,15 +29,27 @@ export default function Experience() {
 
   const experiences = [
     {
+      role: "Software Developer Intern",
+      company: "UnivAegis (YNU Platform)",
+      location: "Delhi",
+      duration: "Dec 2025 – Present",
+      type: "Current",
+      achievements: [
+        "Built a full-stack AI-powered student platform with booking flow, authentication (OTP, JWT, OAuth), and multi-database architecture (PostgreSQL, MongoDB)",
+        "Led backend development and deployment of core platform systems, integrating multiple dashboards, managing cloud infrastructure (AWS S3), and ensuring scalable and reliable performance across user workflows"
+      ],
+      tags: ["FastAPI", "PostgreSQL", "MongoDB", "AWS", "JWT", "OAuth"],
+      icon: "🚀"
+    },
+    {
       role: "AI & Full Stack Developer Intern",
       company: "Escorts Kubota Ltd.",
       location: "Faridabad",
       duration: "July 2025 – August 2025",
       type: "Internship",
       achievements: [
-        "Designed and deployed an AI-powered business intelligence assistant that converts natural language queries into actionable data insights",
-        "Developed the full stack using Flask, SQLAlchemy ORM, and Streamlit; integrated LLMs for intelligent query understanding",
-        "Delivered a production-ready tool enabling non-technical teams to analyze sales data through visual dashboards"
+        "Developed and deployed an AI-powered assistant enabling natural language querying and automated data visualization",
+        "Built full-stack system using Flask, SQLAlchemy, and Streamlit with integrated NLP-based query processing"
       ],
       tags: ["AI/ML", "Flask", "LLMs", "Streamlit", "SQLAlchemy"],
       icon: "💼"

@@ -33,28 +33,32 @@ export default function Projects() {
       description: "Created an AI-driven hiring platform with conversational LLM integration for automated candidate evaluation. Implemented full-stack architecture enabling real-time question generation and hiring report generation.",
       tags: ["AI/ML", "LLMs", "Full Stack", "Automation"],
       icon: "🤖",
-      gradient: "from-blue-500 to-cyan-500"
+      gradient: "from-blue-500 to-cyan-500",
+      github: "https://github.com/uppal-bhumik/TalentScout-AI"
     },
     {
       title: "IoT Waste Segregation",
       description: "Built a YOLOv5+ CNN hybrid model achieving 94% accuracy on custom datasets. Deployed on Raspberry Pi using TensorFlow Lite for real-time edge inference.",
       tags: ["Computer Vision", "IoT", "YOLOv5", "TensorFlow"],
       icon: "♻️",
-      gradient: "from-green-500 to-emerald-500"
+      gradient: "from-green-500 to-emerald-500",
+      github: "https://github.com/uppal-bhumik/waste_segregation"
     },
     {
-      title: "Sign Language Learning App",
-      description: "Developed an LSTM-CNN model with MediaPipe for hand tracking; achieved high-accuracy gesture recognition (less than 100ms latency). Deployed via Flask API for real-time English/Gujarati translation.",
-      tags: ["Deep Learning", "MediaPipe", "Flask", "Real-time"],
-      icon: "🤟",
-      gradient: "from-purple-500 to-pink-500"
+      title: "Med-Guard App",
+      description: "Developed an AI-powered platform using OCR and LLMs for prescription parsing and ADR risk analysis. Engineered a multilingual, offline-first system with drug-drug interaction (DDI) detection and real-time alerts (200ms, 92%+ OCR accuracy).",
+      tags: ["Healthcare AI", "OCR", "LLMs", "Offline-first"],
+      icon: "💊",
+      gradient: "from-purple-500 to-pink-500",
+      github: "https://github.com/uppal-bhumik/MedGuard"
     },
     {
       title: "She Nurtures AI Assistant",
       description: "Developed an empathetic health assistant offering reproductive health support, pitched to the Govt. of Karnataka. Built a dual-mode web app (Node.js, Azure TTS) providing accessible voice and chat-based guidance.",
       tags: ["Healthcare AI", "Node.js", "Azure", "Voice Tech"],
       icon: "💝",
-      gradient: "from-rose-500 to-orange-500"
+      gradient: "from-rose-500 to-orange-500",
+      github: "https://github.com/uppal-bhumik/she-nurtures-ai"
     }
   ];
 
@@ -104,6 +108,17 @@ export default function Projects() {
                     {project.title}
                   </h3>
                 </div>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/60 text-gray-300 rounded-lg text-xs font-medium border border-purple-500/20 hover:border-purple-500/50 hover:text-white hover:bg-slate-700/80 transition-all duration-300 shrink-0"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  View Repo
+                </a>
               </div>
 
               {/* Project Description */}

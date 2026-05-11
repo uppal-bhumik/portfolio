@@ -27,20 +27,39 @@ export default function About() {
     };
   }, []);
 
-  const skills = [
-    { name: "Python", level: 95, icon: "🐍" },
-    { name: "TensorFlow", level: 90, icon: "🧠" },
-    { name: "Docker", level: 85, icon: "🐳" },
-    { name: "Azure", level: 80, icon: "☁️" },
-    { name: "SQL", level: 88, icon: "🗄️" },
-    { name: "MLOps", level: 85, icon: "⚙️" }
+  const skillCategories = [
+    {
+      title: "Languages",
+      icon: "💻",
+      skills: ["Python", "Java", "SQL"]
+    },
+    {
+      title: "AI & ML",
+      icon: "🧠",
+      skills: ["Computer Vision", "NLP", "RAG Pipelines"]
+    },
+    {
+      title: "Backend",
+      icon: "⚙️",
+      skills: ["FastAPI", "Flask", "REST APIs", "JWT", "Authentication"]
+    },
+    {
+      title: "Databases",
+      icon: "🗄️",
+      skills: ["PostgreSQL", "MySQL", "MongoDB"]
+    },
+    {
+      title: "DevOps & Systems",
+      icon: "🚀",
+      skills: ["Docker", "CI/CD", "AWS", "Nginx", "Google Cloud", "Git"]
+    }
   ];
 
   const highlights = [
-    { icon: "📚", title: "Published Researcher", desc: "Springer Publications" },
-    { icon: "🎓", title: "B.Tech Student", desc: "Industrial IoT" },
-    { icon: "🤖", title: "AI Specialist", desc: "End-to-End Systems" },
-    { icon: "🚀", title: "Full-Stack", desc: "R&D to Deployment" }
+    { icon: "📚", title: "Published Researcher", desc: "Springer LNNS, 2025" },
+    { icon: "🎓", title: "B.Tech IoT", desc: "VIPS, New Delhi" },
+    { icon: "🤖", title: "Applied AI Engineer", desc: "End-to-End Systems" },
+    { icon: "🚀", title: "Full-Stack", desc: "Production Deployments" }
   ];
 
   return (
@@ -72,13 +91,13 @@ export default function About() {
             <div className="relative">
               <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full"></div>
               <p className="text-slate-300 text-lg leading-relaxed pl-6">
-                I am a <span className="text-white font-semibold">final-year B.Tech Industrial IoT student</span> with a deep specialization in <span className="text-blue-400 font-semibold">Generative AI</span>, <span className="text-purple-400 font-semibold">Computer Vision</span>, and <span className="text-pink-400 font-semibold">MLOps</span>.
+                <span className="text-white font-semibold">Applied AI Engineer</span> building end-to-end systems combining <span className="text-blue-400 font-semibold">full-stack development</span>, <span className="text-purple-400 font-semibold">AI capabilities</span>, and <span className="text-pink-400 font-semibold">scalable deployment</span>.
               </p>
               <p className="text-slate-300 text-lg leading-relaxed pl-6 mt-4">
-                As a <span className="text-white font-semibold">published Springer researcher</span>, I have hands-on experience developing and deploying end-to-end AI systems, from initial R&D to full-stack deployment.
+                Experienced in designing and shipping <span className="text-white font-semibold">production-ready applications</span>. Published researcher with a background in <span className="text-blue-400">computer vision</span>, <span className="text-purple-400">machine learning</span>, and <span className="text-pink-400">IoT systems</span>.
               </p>
               <p className="text-slate-300 text-lg leading-relaxed pl-6 mt-4">
-                I am proficient in <span className="text-blue-400">Python</span>, <span className="text-blue-400">TensorFlow</span>, <span className="text-blue-400">SQL</span>, <span className="text-blue-400">Docker</span>, and <span className="text-blue-400">Microsoft Azure</span>, and I am passionate about building intelligent solutions to real-world problems.
+                Currently working as a <span className="text-blue-400 font-semibold">Software Developer Intern</span> at <span className="text-white font-semibold">UnivAegis (YNU Platform)</span>, building full-stack AI-powered student platforms with cloud infrastructure on AWS.
               </p>
             </div>
 
@@ -109,43 +128,45 @@ export default function About() {
             <h3 className="text-2xl font-bold text-white mb-6">Technical Skills</h3>
             
             <div className="space-y-5">
-              {skills.map((skill, index) => (
+              {skillCategories.map((category, index) => (
                 <div
                   key={index}
-                  className={`transition-all duration-500 ${
+                  className={`p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-blue-500/30 transition-all duration-300 ${
                     isVisible ? "opacity-100" : "opacity-0"
                   }`}
                   style={{ transitionDelay: `${600 + index * 100}ms` }}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="flex items-center gap-2 text-slate-300 font-medium">
-                      <span>{skill.icon}</span>
-                      {skill.name}
-                    </span>
-                    <span className="text-slate-400 text-sm">{skill.level}%</span>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">{category.icon}</span>
+                    <span className="text-white font-semibold text-sm">{category.title}</span>
                   </div>
-                  <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden border border-slate-700/50">
-                    <div
-                      className="h-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full transition-all duration-1000 ease-out"
-                      style={{
-                        width: isVisible ? `${skill.level}%` : "0%",
-                        transitionDelay: `${600 + index * 100}ms`
-                      }}
-                    ></div>
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill, idx) => (
+                      <span
+                        key={idx}
+                        className="px-3 py-1 bg-slate-900/50 text-blue-300 rounded-lg text-xs font-medium border border-blue-500/20 hover:border-blue-500/40 hover:bg-slate-800/80 transition-all duration-200"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Additional Info Card */}
+            {/* Education Card */}
             <div className="mt-8 p-6 rounded-xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-slate-700/50">
               <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
-                <span>💡</span>
-                Current Focus
+                <span>🎓</span>
+                Education
               </h4>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                Building scalable AI/ML systems with a focus on <span className="text-blue-400 font-medium">Generative AI applications</span>, <span className="text-purple-400 font-medium">Computer Vision pipelines</span>, and implementing robust <span className="text-pink-400 font-medium">MLOps practices</span> for production environments.
-              </p>
+              <p className="text-white text-sm font-semibold">B.Tech in Industrial Internet of Things (IoT)</p>
+              <p className="text-slate-400 text-sm mt-1">Vivekananda Institute of Professional Studies, New Delhi</p>
+              <div className="flex items-center gap-4 mt-2">
+                <span className="text-blue-400 text-xs font-medium">2022 – 2026</span>
+                <span className="text-slate-500 text-xs">•</span>
+                <span className="text-purple-400 text-xs font-medium">CGPA: 7.41 / 10</span>
+              </div>
             </div>
           </div>
         </div>
