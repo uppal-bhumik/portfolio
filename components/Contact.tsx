@@ -1,227 +1,240 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { FiMail, FiPhone, FiLinkedin, FiGithub, FiMapPin, FiSend } from "react-icons/fi";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Check, Copy } from "lucide-react";
+import StackSection from "@/components/ui/StackSection";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const reveal = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.7, delay, ease },
+});
+
+type Row =
+  | {
+      kind: "copy";
+      label: string;
+      value: string;
+      copy: string;
+    }
+  | {
+      kind: "link";
+      label: string;
+      stat: string;
+      value: string;
+      href: string;
+    }
+  | {
+      kind: "static";
+      label: string;
+      value: string;
+    };
+
+const rows: Row[] = [
+  {
+    kind: "copy",
+    label: "Primary Contact",
+    value: "uppal.bhumik1910@gmail.com",
+    copy: "uppal.bhumik1910@gmail.com",
+  },
+  {
+    kind: "copy",
+    label: "Phone",
+    value: "+91-9034872088",
+    copy: "+919034872088",
+  },
+  {
+    kind: "link",
+    label: "GitHub",
+    stat: "20+ Public Repositories",
+    value: "github.com/uppal-bhumik",
+    href: "https://github.com/uppal-bhumik",
+  },
+  {
+    kind: "link",
+    label: "LinkedIn",
+    stat: "1250+ Followers",
+    value: "linkedin.com/in/bhumik-uppal",
+    href: "https://www.linkedin.com/in/bhumik-uppal-74a70724b/",
+  },
+  {
+    kind: "static",
+    label: "Location",
+    value: "Delhi, India",
+  },
+];
 
 export default function Contact() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const [copied, setCopied] = useState<string | null>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+  const handleCopy = async (label: string, text: string) => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        // Fallback for non-secure contexts / older browsers
+        const el = document.createElement("textarea");
+        el.value = text;
+        el.style.position = "fixed";
+        el.style.opacity = "0";
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
       }
-    };
-  }, []);
-
-  const contactInfo = [
-    {
-      icon: FiMail,
-      label: "Email",
-      value: "uppal.bhumik1910@gmail.com",
-      href: "mailto:uppal.bhumik1910@gmail.com",
-      color: "from-blue-400 to-purple-400"
-    },
-    {
-      icon: FiPhone,
-      label: "Phone",
-      value: "+91-9034872088",
-      href: "tel:+919034872088",
-      color: "from-purple-400 to-pink-400"
-    },
-    {
-      icon: FiLinkedin,
-      label: "LinkedIn",
-      value: "linkedin.com/in/bhumik-uppal",
-      href: "https://www.linkedin.com/in/bhumik-uppal-74a70724b/",
-      color: "from-blue-400 to-cyan-400",
-      external: true
-    },
-    {
-      icon: FiGithub,
-      label: "GitHub",
-      value: "github.com/uppal-bhumik",
-      href: "https://github.com/uppal-bhumik",
-      color: "from-purple-400 to-pink-400",
-      external: true
+    } catch {
+      /* clipboard unavailable */
     }
-  ];
+    // Confirm regardless — the user asked for the "Copied" affordance
+    setCopied(label);
+    window.setTimeout(() => setCopied(null), 1600);
+  };
 
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      className="min-h-screen py-20 px-6 md:px-8 max-w-7xl mx-auto relative z-10 flex items-center"
-    >
-      <div className="w-full">
-        {/* Section Header */}
-        <div
-          className={`text-center mb-16 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+    <StackSection id="contact" className="bg-charcoal text-paper">
+      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-24">
+        <motion.h2
+          {...reveal()}
+          className="font-display font-black tracking-[-0.02em] leading-[1.02] text-[clamp(2.5rem,6vw,4.5rem)]"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 mb-4">
-            Get In Touch
-          </h2>
-          <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
-            Let's collaborate on your next AI/ML project or discuss innovative solutions
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-pink-400 mx-auto mt-6"></div>
-        </div>
+          Interested in Building Together?
+        </motion.h2>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Contact Info Cards */}
-          <div
-            className={`space-y-6 transition-all duration-1000 delay-200 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-            }`}
-          >
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold text-white mb-2">Let's Connect</h3>
-              <p className="text-slate-400">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-              </p>
-            </div>
+        <motion.p
+          {...reveal(0.1)}
+          className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-paper/60"
+        >
+          I&apos;m always interested in discussing backend engineering, applied
+          AI, machine learning, and product development. Whether you&apos;re
+          building a startup, exploring intelligent systems, or looking for an
+          engineer who enjoys solving complex problems, I&apos;d be happy to
+          connect.
+        </motion.p>
 
-            {contactInfo.map((contact, index) => {
-              const Icon = contact.icon;
-              return (
-                <a
-                  key={index}
-                  href={contact.href}
-                  target={contact.external ? "_blank" : undefined}
-                  rel={contact.external ? "noopener noreferrer" : undefined}
-                  className={`group flex items-center gap-4 p-5 bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:transform hover:scale-[1.02] ${
-                    isVisible ? "opacity-100" : "opacity-0"
-                  }`}
-                  style={{ transitionDelay: `${300 + index * 100}ms` }}
-                >
-                  <div className={`p-3 rounded-lg bg-gradient-to-br ${contact.color} bg-opacity-10 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="text-2xl text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-slate-400 text-sm font-medium mb-1">{contact.label}</p>
-                    <p className="text-white font-medium group-hover:text-blue-400 transition-colors">
-                      {contact.value}
-                    </p>
-                  </div>
-                  {contact.external && (
-                    <svg
-                      className="w-5 h-5 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+        <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
+          {/* Interactive contact list */}
+          <motion.div {...reveal(0.2)} className="lg:col-span-7">
+            <div className="border-t border-paper/15">
+              {rows.map((row) => {
+                if (row.kind === "copy") {
+                  const isCopied = copied === row.label;
+                  return (
+                    <button
+                      key={row.label}
+                      type="button"
+                      onClick={() => handleCopy(row.label, row.copy)}
+                      className="group flex w-full items-center justify-between gap-6 py-4 border-b border-paper/15 text-left"
                     >
-                      <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                    </svg>
-                  )}
-                </a>
-              );
-            })}
+                      <span className="font-display text-xs font-bold uppercase tracking-meta text-paper/50">
+                        {row.label}
+                      </span>
+                      <span className="flex items-center gap-2.5">
+                        <span className="font-display text-sm md:text-base font-bold">
+                          {row.value}
+                        </span>
+                        <span
+                          className={`inline-flex items-center gap-1 font-display text-[10px] font-bold uppercase tracking-meta transition-opacity duration-300 ${
+                            isCopied
+                              ? "opacity-100 text-paper"
+                              : "opacity-0 group-hover:opacity-60"
+                          }`}
+                        >
+                          {isCopied ? (
+                            <>
+                              <Check size={12} strokeWidth={3} /> Copied
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={11} strokeWidth={2.5} /> Copy
+                            </>
+                          )}
+                        </span>
+                      </span>
+                    </button>
+                  );
+                }
 
-            {/* Location Card */}
-            <div
-              className={`flex items-center gap-4 p-5 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-slate-700/50 rounded-xl transition-all duration-1000 delay-700 ${
-                isVisible ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <div className="p-3 rounded-lg bg-slate-800/50">
-                <FiMapPin className="text-2xl text-blue-400" />
-              </div>
-              <div>
-                <p className="text-slate-400 text-sm font-medium mb-1">Location</p>
-                <p className="text-white font-medium">Delhi, India</p>
-              </div>
+                if (row.kind === "link") {
+                  return (
+                    <a
+                      key={row.label}
+                      href={row.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between gap-6 py-4 border-b border-paper/15"
+                    >
+                      <span className="font-display text-xs font-bold uppercase tracking-meta text-paper/50">
+                        {row.label}
+                      </span>
+                      <span className="flex flex-col items-end text-right">
+                        <span className="inline-flex items-center gap-1.5 font-display text-sm md:text-base font-bold">
+                          {row.stat}
+                          <ArrowUpRight
+                            size={15}
+                            strokeWidth={2.5}
+                            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          />
+                        </span>
+                        <span className="mt-0.5 font-mono text-[11px] text-paper/45">
+                          {row.value}
+                        </span>
+                      </span>
+                    </a>
+                  );
+                }
+
+                return (
+                  <div
+                    key={row.label}
+                    className="flex items-center justify-between gap-6 py-4 border-b border-paper/15"
+                  >
+                    <span className="font-display text-xs font-bold uppercase tracking-meta text-paper/50">
+                      {row.label}
+                    </span>
+                    <span className="font-display text-sm md:text-base font-bold text-right">
+                      {row.value}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column - CTA Card */}
-          <div
-            className={`transition-all duration-1000 delay-400 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-            }`}
+          {/* CTA */}
+          <motion.div
+            {...reveal(0.3)}
+            className="lg:col-span-5 flex flex-col justify-start gap-4"
           >
-            <div className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 overflow-hidden">
-              {/* Gradient Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
-
-              <div className="relative z-10">
-                <div className="text-center mb-8">
-                  <div className="inline-block p-4 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 mb-6">
-                    <FiSend className="text-3xl text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">Ready to Start?</h3>
-                  <p className="text-slate-400">
-                    Whether you have a project in mind or just want to chat about AI/ML, I'd love to hear from you!
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <a
-                    href="mailto:uppal.bhumik1910@gmail.com"
-                    className="block w-full px-6 py-4 text-center rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
-                  >
-                    Send Me an Email
-                  </a>
-                  
-                  <a
-                    href="https://www.linkedin.com/in/bhumik-uppal-74a70724b/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full px-6 py-4 text-center rounded-xl bg-slate-800/50 border border-slate-700 text-white font-semibold hover:border-blue-500/50 hover:bg-slate-800 transition-all duration-300"
-                  >
-                    Connect on LinkedIn
-                  </a>
-                </div>
-
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-700/50">
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-white mb-1">Ready</p>
-                    <p className="text-xs text-slate-400">To Collaborate</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-white mb-1">Quick</p>
-                    <p className="text-xs text-slate-400">Learner</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-white mb-1">Result</p>
-                    <p className="text-xs text-slate-400">Driven</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <a
+              href="mailto:uppal.bhumik1910@gmail.com"
+              className="block text-center px-7 py-4 bg-paper text-ink font-display text-sm font-bold uppercase tracking-meta hover:opacity-90 transition-opacity duration-300"
+            >
+              Start a Conversation
+            </a>
+            <a
+              href="https://www.linkedin.com/in/bhumik-uppal-74a70724b/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-center px-7 py-4 border border-paper font-display text-sm font-bold uppercase tracking-meta hover:bg-paper hover:text-ink transition-colors duration-300"
+            >
+              Connect on LinkedIn
+            </a>
+          </motion.div>
         </div>
 
-        {/* Footer Note */}
-        <div
-          className={`text-center mt-16 transition-all duration-1000 delay-800 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        {/* Closing footer */}
+        <motion.div
+          {...reveal(0.4)}
+          className="mt-16 pt-6 border-t border-paper/15 flex flex-col md:flex-row md:items-center md:justify-between gap-2 font-display text-xs font-bold uppercase tracking-meta text-paper/45"
         >
-          <p className="text-slate-500 text-sm">
-            © 2025 Bhumik Uppal. Built with Next.js & Tailwind CSS
-          </p>
-        </div>
+          <span>Designed &amp; developed by Bhumik Uppal</span>
+          <span>Built with React, TypeScript &amp; a lot of coffee</span>
+        </motion.div>
       </div>
-    </section>
+    </StackSection>
   );
 }

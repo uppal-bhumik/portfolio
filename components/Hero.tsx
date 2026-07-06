@@ -1,130 +1,94 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import StackSection from "@/components/ui/StackSection";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const reveal = (delay: number) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease },
+});
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden px-6 md:px-12">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
+    <StackSection id="hero" className="bg-paper text-ink">
+      <div className="min-h-[85vh] flex items-center px-6 md:px-12 lg:px-20 pt-28 pb-16">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-center">
+          {/* Text block */}
+          <div className="lg:col-span-8 order-2 lg:order-1">
+            <motion.h1
+              {...reveal(0.1)}
+              className="font-display font-black tracking-[-0.03em] leading-[1.02] text-[clamp(2.75rem,6.5vw,5.5rem)]"
+            >
+              Hi, I&apos;m Bhumik
+            </motion.h1>
 
-      {/* Main content container */}
-      <div className="max-w-7xl w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Photo */}
-          <div className={`flex justify-center lg:justify-start transition-all duration-1000 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="relative group">
-              {/* Gradient border effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-              
-              {/* Photo container */}
-              <div className="relative">
-                <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-slate-700 overflow-hidden">
-                  {/* Replace with your actual photo */}
-                  <img
-                    src="/profile.JPG"
-                    alt="Bhumik Uppal"
-                    className="w-full h-full object-cover object-bottom"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+            <motion.p
+              {...reveal(0.25)}
+              className="mt-6 max-w-2xl text-xl md:text-2xl leading-snug text-ink-soft"
+            >
+              <span className="font-display font-bold text-ink">
+                Backend Engineer <span className="amp">&amp;</span> Applied AI Developer
+              </span>{" "}
+              building intelligent software from backend architecture to production deployment.
+            </motion.p>
 
-          {/* Right Side - Content */}
-          <div className={`text-center lg:text-left space-y-6 transition-all duration-1000 delay-200 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 pb-2">
-              Bhumik Uppal
-            </h1>
-            
-            <p className="text-xl md:text-2xl lg:text-3xl text-slate-300 font-light tracking-wide">
-              AI/ML Developer
-            </p>
+            <motion.p
+              {...reveal(0.3)}
+              className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-ink-soft"
+            >
+              I enjoy building software that brings together backend engineering and applied AI. Most of my work revolves around designing APIs, building authentication and data systems, integrating cloud services, and embedding AI capabilities such as computer vision and LLMs into real products. Alongside product development, I&apos;ve also published research in computer vision, giving me experience across both engineering and research.
+            </motion.p>
 
-            {/* CTA Buttons - Now in place of skill tags */}
-            <div className={`flex gap-4 justify-center lg:justify-start flex-wrap transition-all duration-1000 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <motion.div {...reveal(0.4)} className="mt-9 flex flex-wrap gap-4">
               <a
                 href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 rounded-full bg-slate-800/50 border border-slate-700 text-white font-medium hover:border-purple-500/50 hover:bg-slate-800 transition-all duration-300 flex items-center gap-2"
+                download="Bhumik_Uppal_Resume.pdf"
+                className="px-7 py-3.5 bg-ink text-paper font-display text-sm font-bold uppercase tracking-meta hover:bg-ink-soft transition-colors duration-300"
               >
-                <svg 
-                  className="w-5 h-5" 
-                  fill="none" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth="2" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                Resume
+                Download Résumé
               </a>
-              <a
-                href="#contact"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
+              <button
+                onClick={() =>
+                  document
+                    .querySelector("#projects")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="px-7 py-3.5 border border-ink text-ink font-display text-sm font-bold uppercase tracking-meta hover:bg-ink hover:text-paper transition-colors duration-300"
               >
-                Get In Touch
-              </a>
-            </div>
+                View Projects
+              </button>
+            </motion.div>
+
+            <motion.p
+              {...reveal(0.5)}
+              className="mt-9 font-display text-xs font-semibold uppercase tracking-meta text-ink-faint"
+            >
+              Delhi, India | Available for Opportunities
+            </motion.p>
           </div>
-        </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-800 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="flex flex-col items-center gap-2 text-slate-500">
-          <span className="text-xs uppercase tracking-widest">Scroll to explore</span>
-          <svg 
-            className="w-6 h-6 animate-bounce" 
-            fill="none" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="2" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
+          {/* The one portrait on the site */}
+          <motion.div
+            {...reveal(0.2)}
+            className="lg:col-span-4 order-1 lg:order-2 flex lg:justify-end"
           >
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+            <div className="relative w-48 h-64 md:w-64 md:h-[22rem] lg:w-[22rem] lg:h-[30rem] rounded-3xl overflow-hidden border border-line bg-[#EBEAE7]">
+              <Image
+                src="/IMG_1186.JPG.jpeg"
+                alt="Portrait of Bhumik Uppal"
+                fill
+                priority
+                sizes="(max-width: 1024px) 256px, 320px"
+                className="object-cover object-bottom"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 0.1;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.2;
-            transform: scale(1.1);
-          }
-        }
-
-        .animate-pulse {
-          animation: pulse 4s ease-in-out infinite;
-        }
-
-        .delay-1000 {
-          animation-delay: 2s;
-        }
-      `}</style>
-    </main>
+    </StackSection>
   );
 }
-

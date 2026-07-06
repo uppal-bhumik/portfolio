@@ -1,177 +1,101 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+const navLinks = [
+  { name: "About", href: "#about" },
+  { name: "Experience", href: "#experience" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
+];
 
 export default function Navbar() {
+  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      // Detect active section
-      const sections = ["about", "experience", "projects", "contact"];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      setActiveSection(current || "");
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      setHidden(y > lastY && y > 120);
+      lastY = y;
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { href: "#about", label: "About", icon: "👤" },
-    { href: "#experience", label: "Experience", icon: "💼" },
-    { href: "#projects", label: "Projects", icon: "🚀" },
-    { href: "#contact", label: "Contact", icon: "📧" }
-  ];
+  const scrollToSection = (href: string) => {
+    setIsOpen(false);
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-slate-950/80 backdrop-blur-lg shadow-lg shadow-slate-900/50 border-b border-slate-800/50"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-8 py-4">
-        <div className="flex justify-between items-center">
-          {/* Logo/Name - Left Side */}
-          <a 
-            href="#" 
-            className="relative group"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+          hidden && !isOpen ? "-translate-y-full" : "translate-y-0"
+        } ${
+          scrolled && !isOpen
+            ? "bg-paper/95 border-b border-line"
+            : "bg-transparent border-b border-transparent"
+        }`}
+      >
+        <div className="flex items-center justify-between px-6 md:px-12 lg:px-20 py-5">
+          <button
+            onClick={() => scrollToSection("#hero")}
+            className="font-display text-lg font-black uppercase tracking-tight text-ink"
           >
-            <span className="font-bold text-xl md:text-2xl bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 hover:from-blue-300 hover:via-purple-300 hover:to-pink-300 transition-all duration-300">
-              Bhumik Uppal
-            </span>
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-pink-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
+            Bhumik Uppal
+          </button>
 
-          {/* Desktop Navigation - Right Side */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop */}
+          <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`relative text-sm font-medium tracking-wide transition-all duration-300 group ${
-                  activeSection === link.href.slice(1)
-                    ? "text-white"
-                    : "text-slate-400 hover:text-white"
-                }`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const element = document.querySelector(link.href);
-                  element?.scrollIntoView({ behavior: "smooth" });
-                  setMobileMenuOpen(false);
-                }}
+              <button
+                key={link.name}
+                onClick={() => scrollToSection(link.href)}
+                className="font-display text-xs font-bold uppercase tracking-meta text-ink-soft hover:bg-ink hover:text-paper px-3 py-2 transition-all duration-300"
               >
-                <span className="flex items-center gap-2">
-                  <span className="text-xs opacity-70 group-hover:opacity-100 transition-opacity">
-                    {link.icon}
-                  </span>
-                  {link.label}
-                </span>
-                <span
-                  className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-400 to-pink-400 transition-all duration-300 ${
-                    activeSection === link.href.slice(1)
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
-                  }`}
-                ></span>
-              </a>
+                {link.name}
+              </button>
             ))}
-
-            {/* CTA Button */}
-            <a
-              href="#contact"
-              className="px-5 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-medium hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              Let's Talk
-            </a>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile toggle */}
           <button
-            className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 group"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            className="md:hidden text-[11px] uppercase tracking-meta text-ink"
           >
-            <span
-              className={`w-6 h-0.5 bg-slate-300 transition-all duration-300 ${
-                mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            ></span>
-            <span
-              className={`w-6 h-0.5 bg-slate-300 transition-all duration-300 ${
-                mobileMenuOpen ? "opacity-0" : ""
-              }`}
-            ></span>
-            <span
-              className={`w-6 h-0.5 bg-slate-300 transition-all duration-300 ${
-                mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            ></span>
+            {isOpen ? "Close" : "Menu"}
           </button>
         </div>
+      </nav>
 
-        {/* Mobile Menu */}
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            mobileMenuOpen ? "max-h-96 opacity-100 mt-6" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="flex flex-col gap-4 py-4 border-t border-slate-800">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 ${
-                  activeSection === link.href.slice(1)
-                    ? "bg-slate-800/50 text-white"
-                    : "text-slate-400 hover:text-white hover:bg-slate-800/30"
-                }`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const element = document.querySelector(link.href);
-                  element?.scrollIntoView({ behavior: "smooth" });
-                  setMobileMenuOpen(false);
-                }}
-              >
-                <span className="text-lg">{link.icon}</span>
-                <span className="font-medium">{link.label}</span>
-              </a>
-            ))}
-            <a
-              href="#contact"
-              className="mx-4 mt-2 px-5 py-3 text-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-blue-500/25"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                setMobileMenuOpen(false);
-              }}
+      {/* Mobile menu */}
+      <div
+        className={`fixed inset-0 z-40 bg-paper md:hidden transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="h-full flex flex-col items-start justify-center gap-8 px-6 pt-16">
+          {navLinks.map((link, i) => (
+            <button
+              key={link.name}
+              onClick={() => scrollToSection(link.href)}
+              className="font-display text-4xl font-black uppercase tracking-tight text-ink"
             >
-              Let's Talk
-            </a>
-          </div>
+              <span className="font-mono text-xs text-ink-faint align-top mr-3">
+                0{i + 1}
+              </span>
+              {link.name}
+            </button>
+          ))}
         </div>
       </div>
-    </nav>
+    </>
   );
 }

@@ -1,13 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import ClientProviders from "@/components/ClientProviders";
 
-const inter = Inter({ subsets: ["latin"] });
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
-  title: "Bhumik Uppal - AI/ML Developer",
-  description: "Personal portfolio of Bhumik Uppal, an AI/ML Developer specializing in Generative AI, Computer Vision, and MLOps.",
+  title: "Bhumik Uppal — AI Engineer & Product Builder",
+  description:
+    "AI engineer specialising in generative AI, computer vision, and MLOps. Springer-published researcher building production-grade intelligent systems.",
 };
 
 export default function RootLayout({
@@ -16,10 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Navbar />
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${archivo.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans bg-paper text-ink selection:bg-ink selection:text-paper`}
+      >
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

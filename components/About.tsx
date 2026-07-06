@@ -1,155 +1,54 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import StackSection from "@/components/ui/StackSection";
+import CurrentFocus from "@/components/ui/CurrentFocus";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const reveal = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.7, delay, ease },
+});
 
 export default function About() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
-  const skills = [
-    { name: "Python", level: 95, icon: "🐍" },
-    { name: "TensorFlow", level: 90, icon: "🧠" },
-    { name: "Docker", level: 85, icon: "🐳" },
-    { name: "Azure", level: 80, icon: "☁️" },
-    { name: "SQL", level: 88, icon: "🗄️" },
-    { name: "MLOps", level: 85, icon: "⚙️" }
-  ];
-
-  const highlights = [
-    { icon: "📚", title: "Published Researcher", desc: "Springer Publications" },
-    { icon: "🎓", title: "B.Tech Student", desc: "Industrial IoT" },
-    { icon: "🤖", title: "AI Specialist", desc: "End-to-End Systems" },
-    { icon: "🚀", title: "Full-Stack", desc: "R&D to Deployment" }
-  ];
-
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="min-h-screen py-20 px-6 md:px-8 max-w-7xl mx-auto relative z-10 flex items-center"
-    >
-      <div className="w-full">
-        {/* Section Title */}
-        <div
-          className={`transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+    <StackSection id="about" className="bg-onyx text-onyx-ink relative overflow-hidden">
+      {/* Blurry background element merging with the current background */}
+      <div className="absolute right-[-10%] top-1/4 w-[800px] h-[800px] bg-white/[0.03] blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute left-[-10%] bottom-[-10%] w-[600px] h-[600px] bg-white/[0.02] blur-[100px] rounded-full pointer-events-none" />
+      
+      {/* Blurred duplicate of CurrentFocus to act as a textured background */}
+      <div className="absolute right-0 top-1/4 w-[600px] opacity-[0.03] blur-[8px] pointer-events-none select-none scale-150 origin-right">
+        <CurrentFocus />
+      </div>
+
+      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-24 relative z-10">
+        <motion.h2
+          {...reveal()}
+          className="font-display font-black tracking-[-0.02em] text-4xl md:text-5xl text-white"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 mb-4">
-            About Me
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-pink-400 mb-12"></div>
-        </div>
+          About
+        </motion.h2>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Bio */}
-          <div
-            className={`space-y-6 transition-all duration-1000 delay-200 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="relative">
-              <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full"></div>
-              <p className="text-slate-300 text-lg leading-relaxed pl-6">
-                I am a <span className="text-white font-semibold">final-year B.Tech Industrial IoT student</span> with a deep specialization in <span className="text-blue-400 font-semibold">Generative AI</span>, <span className="text-purple-400 font-semibold">Computer Vision</span>, and <span className="text-pink-400 font-semibold">MLOps</span>.
-              </p>
-              <p className="text-slate-300 text-lg leading-relaxed pl-6 mt-4">
-                As a <span className="text-white font-semibold">published Springer researcher</span>, I have hands-on experience developing and deploying end-to-end AI systems, from initial R&D to full-stack deployment.
-              </p>
-              <p className="text-slate-300 text-lg leading-relaxed pl-6 mt-4">
-                I am proficient in <span className="text-blue-400">Python</span>, <span className="text-blue-400">TensorFlow</span>, <span className="text-blue-400">SQL</span>, <span className="text-blue-400">Docker</span>, and <span className="text-blue-400">Microsoft Azure</span>, and I am passionate about building intelligent solutions to real-world problems.
-              </p>
-            </div>
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-12">
+          <motion.div {...reveal(0.1)} className="lg:col-span-7">
+            <p className="text-lg md:text-xl leading-relaxed text-white/90">
+              I enjoy building products where strong backend engineering meets applied AI. Whether it&apos;s designing backend systems, building authentication flows, integrating AI into existing products, or deploying production ready applications, I enjoy solving engineering problems that have a real impact on the people using them.
+            </p>
+            <p className="mt-6 text-lg md:text-xl leading-relaxed text-white/90">
+              Over the past year, I&apos;ve worked across education, healthcare, and enterprise products, taking ideas from the first database schema to deployment. Along the way, publishing research in computer vision gave me a research driven perspective that complements my hands on experience in building software.
+            </p>
+          </motion.div>
 
-            {/* Highlights Grid */}
-            <div className="grid grid-cols-2 gap-4 mt-8">
-              {highlights.map((item, index) => (
-                <div
-                  key={index}
-                  className={`p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105 ${
-                    isVisible ? "opacity-100" : "opacity-0"
-                  }`}
-                  style={{ transitionDelay: `${400 + index * 100}ms` }}
-                >
-                  <div className="text-3xl mb-2">{item.icon}</div>
-                  <h3 className="text-white font-semibold text-sm mb-1">{item.title}</h3>
-                  <p className="text-slate-400 text-xs">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column - Skills */}
-          <div
-            className={`space-y-6 transition-all duration-1000 delay-400 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <h3 className="text-2xl font-bold text-white mb-6">Technical Skills</h3>
-            
-            <div className="space-y-5">
-              {skills.map((skill, index) => (
-                <div
-                  key={index}
-                  className={`transition-all duration-500 ${
-                    isVisible ? "opacity-100" : "opacity-0"
-                  }`}
-                  style={{ transitionDelay: `${600 + index * 100}ms` }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="flex items-center gap-2 text-slate-300 font-medium">
-                      <span>{skill.icon}</span>
-                      {skill.name}
-                    </span>
-                    <span className="text-slate-400 text-sm">{skill.level}%</span>
-                  </div>
-                  <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden border border-slate-700/50">
-                    <div
-                      className="h-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full transition-all duration-1000 ease-out"
-                      style={{
-                        width: isVisible ? `${skill.level}%` : "0%",
-                        transitionDelay: `${600 + index * 100}ms`
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Additional Info Card */}
-            <div className="mt-8 p-6 rounded-xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-slate-700/50">
-              <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
-                <span>💡</span>
-                Current Focus
-              </h4>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                Building scalable AI/ML systems with a focus on <span className="text-blue-400 font-medium">Generative AI applications</span>, <span className="text-purple-400 font-medium">Computer Vision pipelines</span>, and implementing robust <span className="text-pink-400 font-medium">MLOps practices</span> for production environments.
-              </p>
-            </div>
-          </div>
+          {/* Shifted upwards significantly */}
+          <motion.div {...reveal(0.2)} className="lg:col-span-5 lg:-mt-24">
+            <CurrentFocus />
+          </motion.div>
         </div>
       </div>
-    </section>
+    </StackSection>
   );
 }
