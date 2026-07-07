@@ -116,14 +116,14 @@ export default function Experience() {
               >
                 {/* Rail: connecting line + dot + date anchor */}
                 <div
-                  className={`relative md:pl-8 ${last ? "" : "md:border-l-4"
-                    } border-cyan-ink/40 pb-3 md:pb-20`}
+                  className={`relative pl-0 md:pl-8 ${last ? "" : "md:border-l-4"
+                    } border-cyan-ink/40 pb-0 md:pb-20`}
                 >
                   <span
                     aria-hidden
                     className="hidden md:block absolute left-[-8px] top-1 h-4 w-4 rounded-full ring-4 ring-cyan bg-cyan-ink"
                   />
-                  <p className="font-display text-base font-black uppercase tracking-meta leading-none text-cyan-ink pt-0.5">
+                  <p className="font-display text-sm md:text-base font-black uppercase tracking-meta leading-none text-cyan-ink pt-0.5 mb-4 md:mb-0">
                     {exp.duration}
                   </p>
                   {exp.placeholder && (
