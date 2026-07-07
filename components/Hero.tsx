@@ -45,8 +45,8 @@ export default function Hero() {
 
             <motion.div {...reveal(0.4)} className="mt-7 sm:mt-9 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <a
-                href="/resume.pdf"
-                download="Bhumik_Uppal_Resume.pdf"
+                href="/bhumik_resume.pdf"
+                download="bhumik_resume.pdf"
                 className="px-7 py-3.5 bg-ink text-paper font-display text-sm font-bold uppercase tracking-meta hover:bg-ink-soft transition-colors duration-300"
               >
                 Download Résumé
