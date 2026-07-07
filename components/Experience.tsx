@@ -89,7 +89,7 @@ const experiences = [
 export default function Experience() {
   return (
     <StackSection id="experience" className="bg-cyan text-cyan-ink">
-      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-24">
+      <div className="px-5 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 md:py-24">
         <motion.div
           {...reveal()}
           className="flex flex-wrap items-end justify-between gap-4"
@@ -112,16 +112,16 @@ export default function Experience() {
               <motion.article
                 key={i}
                 {...reveal(0.1)}
-                className="grid grid-cols-[16px_1fr] md:grid-cols-[188px_1fr] gap-x-6 md:gap-x-10"
+                className="grid grid-cols-1 md:grid-cols-[188px_1fr] gap-x-6 md:gap-x-10"
               >
                 {/* Rail: connecting line + dot + date anchor */}
                 <div
-                  className={`relative pl-6 md:pl-8 ${last ? "" : "border-l-4"
-                    } border-cyan-ink/40 pb-14 md:pb-20`}
+                  className={`relative md:pl-8 ${last ? "" : "md:border-l-4"
+                    } border-cyan-ink/40 pb-3 md:pb-20`}
                 >
                   <span
                     aria-hidden
-                    className="absolute left-[-8px] top-1 h-4 w-4 rounded-full ring-4 ring-cyan bg-cyan-ink"
+                    className="hidden md:block absolute left-[-8px] top-1 h-4 w-4 rounded-full ring-4 ring-cyan bg-cyan-ink"
                   />
                   <p className="font-display text-base font-black uppercase tracking-meta leading-none text-cyan-ink pt-0.5">
                     {exp.duration}
@@ -134,9 +134,9 @@ export default function Experience() {
                 </div>
 
                 {/* Card: full accent colour block, like the Projects cards */}
-                <div className="pb-14 md:pb-20">
+                <div className="pb-10 md:pb-20">
                   <div
-                    className="p-7 md:p-9 text-white"
+                    className="p-5 sm:p-7 md:p-9 text-white"
                     style={{ backgroundColor: accent }}
                   >
                     <h3 className="font-display font-black tracking-[-0.02em] leading-[1.05] text-2xl md:text-3xl">

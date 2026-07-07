@@ -107,3 +107,34 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Mobile-specific fixes ── */
+@media (max-width: 767px) {
+  /* Project descriptions always visible on touch — no hover available */
+  .project-details {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  /* Disable the blur-other-cards effect — causes scroll jank on mobile */
+  .project-grid:hover .project-card:not(:hover) {
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .project-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  #projects:has(.project-card:hover) .projects-head {
+    filter: none;
+    opacity: 1;
+  }
+
+  /* Thinner scrollbar on mobile */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+}

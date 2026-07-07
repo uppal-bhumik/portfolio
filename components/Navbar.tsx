@@ -43,7 +43,7 @@ export default function Navbar() {
             : "bg-transparent border-b border-transparent"
         }`}
       >
-        <div className="flex items-center justify-between px-6 md:px-12 lg:px-20 py-5">
+        <div className="flex items-center justify-between px-5 sm:px-6 md:px-12 lg:px-20 py-4 sm:py-5">
           <button
             onClick={() => scrollToSection("#hero")}
             className="font-display text-lg font-black uppercase tracking-tight text-ink"
@@ -86,7 +86,7 @@ export default function Navbar() {
             <button
               key={link.name}
               onClick={() => scrollToSection(link.href)}
-              className="font-display text-4xl font-black uppercase tracking-tight text-ink"
+              className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight text-ink"
             >
               <span className="font-mono text-xs text-ink-faint align-top mr-3">
                 0{i + 1}

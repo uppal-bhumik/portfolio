@@ -15,7 +15,7 @@ const reveal = (delay: number) => ({
 export default function Hero() {
   return (
     <StackSection id="hero" className="bg-paper text-ink">
-      <div className="min-h-[85vh] flex items-center px-6 md:px-12 lg:px-20 pt-28 pb-16">
+      <div className="min-h-[85vh] flex items-center px-5 sm:px-6 md:px-12 lg:px-20 pt-24 sm:pt-28 pb-12 sm:pb-16">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-12 items-center">
           {/* Text block */}
           <div className="lg:col-span-8 order-2 lg:order-1">
@@ -43,7 +43,7 @@ export default function Hero() {
               I enjoy building software that brings together backend engineering and applied AI. Most of my work revolves around designing APIs, building authentication and data systems, integrating cloud services, and embedding AI capabilities such as computer vision and LLMs into real products. Alongside product development, I&apos;ve also published research in computer vision, giving me experience across both engineering and research.
             </motion.p>
 
-            <motion.div {...reveal(0.4)} className="mt-9 flex flex-wrap gap-4">
+            <motion.div {...reveal(0.4)} className="mt-7 sm:mt-9 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <a
                 href="/resume.pdf"
                 download="Bhumik_Uppal_Resume.pdf"
@@ -74,9 +74,9 @@ export default function Hero() {
           {/* The one portrait on the site */}
           <motion.div
             {...reveal(0.2)}
-            className="lg:col-span-4 order-1 lg:order-2 flex lg:justify-end"
+            className="lg:col-span-4 order-1 lg:order-2 flex justify-center lg:justify-end"
           >
-            <div className="relative w-48 h-64 md:w-64 md:h-[22rem] lg:w-[22rem] lg:h-[30rem] rounded-3xl overflow-hidden border border-line bg-[#EBEAE7]">
+            <div className="relative w-52 h-72 sm:w-56 sm:h-80 md:w-64 md:h-[22rem] lg:w-[22rem] lg:h-[30rem] rounded-3xl overflow-hidden border border-line bg-[#EBEAE7]">
               <Image
                 src="/IMG_1186.JPG.jpeg"
                 alt="Portrait of Bhumik Uppal"

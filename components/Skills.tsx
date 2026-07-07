@@ -104,7 +104,7 @@ const publication = {
 export default function SkillsAndAchievements() {
   return (
     <StackSection id="skills" className="bg-onyx text-onyx-ink">
-      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-24">
+      <div className="px-5 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 md:py-24">
         {/* Section heading */}
         <motion.h2
           {...reveal()}

@@ -96,7 +96,7 @@ export default function Contact() {
 
   return (
     <StackSection id="contact" className="bg-charcoal text-paper">
-      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-24">
+      <div className="px-5 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 md:py-24">
         <motion.h2
           {...reveal()}
           className="font-display font-black tracking-[-0.02em] leading-[1.02] text-[clamp(2.5rem,6vw,4.5rem)]"
@@ -127,13 +127,13 @@ export default function Contact() {
                       key={row.label}
                       type="button"
                       onClick={() => handleCopy(row.label, row.copy)}
-                      className="group flex w-full items-center justify-between gap-6 py-4 border-b border-paper/15 text-left"
+                      className="group flex w-full flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-6 py-4 border-b border-paper/15 text-left"
                     >
                       <span className="font-display text-xs font-bold uppercase tracking-meta text-paper/50">
                         {row.label}
                       </span>
                       <span className="flex items-center gap-2.5">
-                        <span className="font-display text-sm md:text-base font-bold">
+                        <span className="font-display text-sm md:text-base font-bold break-all sm:break-normal">
                           {row.value}
                         </span>
                         <span
@@ -165,12 +165,12 @@ export default function Contact() {
                       href={row.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-between gap-6 py-4 border-b border-paper/15"
+                      className="group flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-6 py-4 border-b border-paper/15"
                     >
                       <span className="font-display text-xs font-bold uppercase tracking-meta text-paper/50">
                         {row.label}
                       </span>
-                      <span className="flex flex-col items-end text-right">
+                      <span className="flex flex-col sm:items-end text-left sm:text-right">
                         <span className="inline-flex items-center gap-1.5 font-display text-sm md:text-base font-bold">
                           {row.stat}
                           <ArrowUpRight
@@ -190,7 +190,7 @@ export default function Contact() {
                 return (
                   <div
                     key={row.label}
-                    className="flex items-center justify-between gap-6 py-4 border-b border-paper/15"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-6 py-4 border-b border-paper/15"
                   >
                     <span className="font-display text-xs font-bold uppercase tracking-meta text-paper/50">
                       {row.label}

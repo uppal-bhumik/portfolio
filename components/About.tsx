@@ -17,15 +17,15 @@ export default function About() {
   return (
     <StackSection id="about" className="bg-onyx text-onyx-ink relative overflow-hidden">
       {/* Blurry background element merging with the current background */}
-      <div className="absolute right-[-10%] top-1/4 w-[800px] h-[800px] bg-white/[0.03] blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute left-[-10%] bottom-[-10%] w-[600px] h-[600px] bg-white/[0.02] blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute right-[-10%] top-1/4 w-[400px] sm:w-[800px] h-[400px] sm:h-[800px] bg-white/[0.03] blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute left-[-10%] bottom-[-10%] w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-white/[0.02] blur-[100px] rounded-full pointer-events-none" />
       
       {/* Blurred duplicate of CurrentFocus to act as a textured background */}
-      <div className="absolute right-0 top-1/4 w-[600px] opacity-[0.03] blur-[8px] pointer-events-none select-none scale-150 origin-right">
+      <div className="hidden sm:block absolute right-0 top-1/4 w-[600px] opacity-[0.03] blur-[8px] pointer-events-none select-none scale-150 origin-right">
         <CurrentFocus />
       </div>
 
-      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-24 relative z-10">
+      <div className="px-5 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 md:py-24 relative z-10">
         <motion.h2
           {...reveal()}
           className="font-display font-black tracking-[-0.02em] text-4xl md:text-5xl text-white"

@@ -56,7 +56,7 @@ const projects = [
 export default function Projects() {
   return (
     <StackSection id="projects" className="bg-stone text-stone-ink">
-      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-24">
+      <div className="px-5 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 md:py-24">
         <motion.div
           {...reveal()}
           className="projects-head flex flex-wrap items-end justify-between gap-4"
@@ -76,7 +76,7 @@ export default function Projects() {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="project-card relative flex h-full min-h-[300px] flex-col justify-between p-8 md:p-10 text-white"
+                className="project-card relative flex h-full min-h-[240px] md:min-h-[300px] flex-col justify-between p-6 sm:p-8 md:p-10 text-white"
                 style={{ backgroundColor: project.color }}
               >
                 <div>
