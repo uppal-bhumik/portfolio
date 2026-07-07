@@ -28,6 +28,31 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/favicon/site.webmanifest",
+  metadataBase: new URL("https://www.bhumik.tech"),
+  openGraph: {
+    title: "Bhumik Uppal — AI Engineer & Product Builder",
+    description:
+      "AI engineer specialising in generative AI, computer vision, and MLOps. Springer-published researcher building production-grade intelligent systems.",
+    url: "https://www.bhumik.tech",
+    siteName: "Bhumik Uppal",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Bhumik Uppal — Software Engineer & Applied AI Builder",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bhumik Uppal — AI Engineer & Product Builder",
+    description:
+      "AI engineer specialising in generative AI, computer vision, and MLOps. Springer-published researcher building production-grade intelligent systems.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
