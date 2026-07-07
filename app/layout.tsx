@@ -14,9 +14,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bhumik Uppal — AI Engineer & Product Builder",
+  title: "Bhumik Uppal — Software Engineer & Applied AI Builder",
   description:
-    "AI engineer specialising in generative AI, computer vision, and MLOps. Springer-published researcher building production-grade intelligent systems.",
+    "Building intelligent products from concept to production using AI, full-stack engineering, machine learning, and scalable backend systems.",
   icons: {
     icon: [
       { url: "/favicon/favicon.ico" },
@@ -30,16 +30,17 @@ export const metadata: Metadata = {
   manifest: "/favicon/site.webmanifest",
   metadataBase: new URL("https://www.bhumik.tech"),
   openGraph: {
-    title: "Bhumik Uppal — AI Engineer & Product Builder",
+    title: "Bhumik Uppal — Software Engineer & Applied AI Builder",
     description:
-      "AI engineer specialising in generative AI, computer vision, and MLOps. Springer-published researcher building production-grade intelligent systems.",
+      "Building intelligent products from concept to production using AI, full-stack engineering, machine learning, and scalable backend systems.",
     url: "https://www.bhumik.tech",
     siteName: "Bhumik Uppal",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "Bhumik Uppal — Software Engineer & Applied AI Builder",
       },
     ],
@@ -48,10 +49,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bhumik Uppal — AI Engineer & Product Builder",
+    title: "Bhumik Uppal — Software Engineer & Applied AI Builder",
     description:
-      "AI engineer specialising in generative AI, computer vision, and MLOps. Springer-published researcher building production-grade intelligent systems.",
-    images: ["/og-image.png"],
+      "Building intelligent products from concept to production using AI, full-stack engineering, machine learning, and scalable backend systems.",
+    images: ["/og-image.jpg"],
   },
 };
 
