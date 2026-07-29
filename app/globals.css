@@ -118,19 +118,52 @@ body {
   pointer-events: none; /* don't fire link clicks mid-drag */
 }
 
-/* Marching dots on the swipe-hint arrow */
-.exp-hint-arrow line {
-  animation: exp-march 1.1s linear infinite;
+/* Marching dashes on the hand-drawn loop arrow — reads as motion */
+.exp-loop path:first-child {
+  animation: exp-march 0.9s linear infinite;
 }
 
 @keyframes exp-march {
   to {
-    stroke-dashoffset: -6;
+    stroke-dashoffset: -10.5;
+  }
+}
+
+/* Glowing swipe badge — a soft breathing glow plus a radar ping */
+.exp-glow {
+  animation: exp-breathe 1.9s ease-in-out infinite;
+}
+
+@keyframes exp-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 16px 1px rgba(28, 50, 52, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 30px 6px rgba(28, 50, 52, 0.6);
+  }
+}
+
+.exp-ping {
+  animation: exp-ping 1.9s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes exp-ping {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  70%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .exp-hint-arrow line {
+  .exp-loop path:first-child,
+  .exp-glow,
+  .exp-ping {
     animation: none;
   }
 
