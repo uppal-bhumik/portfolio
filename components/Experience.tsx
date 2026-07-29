@@ -85,34 +85,6 @@ const experiences = [
   },
 ];
 
-// Hand-drawn loopy dashed arrow — narrates the swipe gesture. The dash
-// "marches" so it reads as motion, not decoration.
-function LoopArrow({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 200 118"
-      fill="none"
-      className={`exp-loop ${className}`}
-      aria-hidden
-    >
-      <path
-        d="M6 92 C 40 112, 82 98, 74 62 C 69 40, 40 40, 42 64 C 44 92, 96 98, 132 82 C 160 70, 178 54, 192 38"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeDasharray="1.5 9"
-      />
-      <path
-        d="M176 40 L192 38 L184 53"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export default function Experience() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -180,6 +152,68 @@ export default function Experience() {
     track.scrollTo({ left, behavior: "smooth" });
   }, []);
 
+  // Scroll-capture: while the section fills the viewport, a vertical scroll
+  // first steps sideways through the cards, one per gesture. Only past the
+  // last card (down) or before the first (up) does the page scroll onward.
+  const wheelLock = useRef(false);
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const onWheel = (e: WheelEvent) => {
+      // Leave horizontal / trackpad side-swipes to native deck scrolling.
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (Math.abs(e.deltaY) < 4) return;
+
+      const sec = document.getElementById("experience");
+      if (!sec) return;
+      const vh = window.innerHeight;
+      const rect = sec.getBoundingClientRect();
+      const filling = rect.top <= 0 && rect.bottom >= vh - 1;
+      if (!filling) return;
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+
+      // Current card = the one nearest the deck centre.
+      const centre = track.scrollLeft + track.clientWidth / 2;
+      let cur = 0;
+      let min = Infinity;
+      Array.from(track.children).forEach((child, i) => {
+        const el = child as HTMLElement;
+        const c = el.offsetLeft + el.offsetWidth / 2;
+        const d = Math.abs(c - centre);
+        if (d < min) {
+          min = d;
+          cur = i;
+        }
+      });
+      const next = cur + dir;
+
+      // At an edge in this direction → let the event reach Lenis so the
+      // page scrolls on to the next / previous section.
+      if (next < 0 || next > experiences.length - 1) return;
+
+      // Otherwise swallow the scroll before Lenis sees it (capture phase +
+      // stopImmediatePropagation) and step exactly one card instead.
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      if (wheelLock.current) return;
+      wheelLock.current = true;
+      scrollToIndex(next);
+      window.setTimeout(() => {
+        wheelLock.current = false;
+      }, 700);
+    };
+
+    window.addEventListener("wheel", onWheel, {
+      capture: true,
+      passive: false,
+    });
+    return () =>
+      window.removeEventListener("wheel", onWheel, { capture: true });
+  }, [scrollToIndex]);
+
   // Grab-and-slide with a mouse. Touch + trackpad scroll natively; a small
   // threshold tells a drag apart from a click on the YNU link.
   const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
@@ -226,7 +260,7 @@ export default function Experience() {
 
   return (
     <StackSection id="experience" className="bg-cyan text-cyan-ink">
-      <div className="py-10 sm:py-12 md:py-14">
+      <div className="flex min-h-screen flex-col justify-center py-10 sm:py-12 md:py-14">
         {/* Header — the swipe cue now lives on the deck, centre-right */}
         <div className="px-5 sm:px-6 md:px-12 lg:px-20">
           <motion.div
@@ -345,7 +379,6 @@ export default function Experience() {
             transition={{ duration: 0.5, ease, delay: interacted ? 0 : 0.7 }}
             className="pointer-events-none absolute right-3 md:right-6 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-2.5 text-cyan-ink md:flex"
           >
-            <LoopArrow className="h-8 w-[54px] text-cyan-ink -rotate-3" />
             <span className="relative flex h-16 w-16 items-center justify-center">
               <span className="exp-ping absolute inset-0 rounded-full bg-cyan-ink/25" />
               <span className="exp-glow flex h-14 w-14 items-center justify-center rounded-full bg-cyan-ink text-cyan">
