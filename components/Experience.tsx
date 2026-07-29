@@ -159,9 +159,16 @@ export default function Experience() {
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // Scroll-capture is a roomy-desktop affordance only. Checked live so
+    // rotating a tablet into a short landscape turns it off immediately.
+    const enabled = () =>
+      window.matchMedia("(min-width: 1024px) and (min-height: 680px)")
+        .matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const onWheel = (e: WheelEvent) => {
+      if (!enabled()) return;
       // Leave horizontal / trackpad side-swipes to native deck scrolling.
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
       if (Math.abs(e.deltaY) < 4) return;
@@ -260,7 +267,7 @@ export default function Experience() {
 
   return (
     <StackSection id="experience" className="bg-cyan text-cyan-ink">
-      <div className="flex min-h-screen flex-col justify-center py-10 sm:py-12 md:py-14">
+      <div className="exp-shell py-10 sm:py-12 md:py-14">
         {/* Header — the swipe cue now lives on the deck, centre-right */}
         <div className="px-5 sm:px-6 md:px-12 lg:px-20">
           <motion.div

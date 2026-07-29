@@ -118,6 +118,18 @@ body {
   pointer-events: none; /* don't fire link clicks mid-drag */
 }
 
+/* The Experience section only fills + vertically centres on a roomy
+   desktop viewport. On phones / short-landscape it flows naturally so
+   nothing is forced to 100vh or clipped by centring. */
+@media (min-width: 1024px) and (min-height: 680px) {
+  .exp-shell {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 /* Glowing swipe badge — a soft breathing glow plus a radar ping */
 .exp-glow {
   animation: exp-breathe 1.9s ease-in-out infinite;
