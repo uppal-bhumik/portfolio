@@ -160,10 +160,12 @@ export default function Experience() {
     const track = trackRef.current;
     if (!track) return;
 
-    // Scroll-capture is a roomy-desktop affordance only. Checked live so
-    // rotating a tablet into a short landscape turns it off immediately.
+    // Scroll-capture is a desktop affordance. The height floor is low so
+    // ordinary laptops (whose viewport is ~640px after browser chrome)
+    // keep it; only genuinely tiny / short-landscape windows opt out.
+    // Checked live so rotating a tablet to short landscape drops it.
     const enabled = () =>
-      window.matchMedia("(min-width: 1024px) and (min-height: 680px)")
+      window.matchMedia("(min-width: 1024px) and (min-height: 560px)")
         .matches &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

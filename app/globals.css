@@ -118,10 +118,12 @@ body {
   pointer-events: none; /* don't fire link clicks mid-drag */
 }
 
-/* The Experience section only fills + vertically centres on a roomy
-   desktop viewport. On phones / short-landscape it flows naturally so
-   nothing is forced to 100vh or clipped by centring. */
-@media (min-width: 1024px) and (min-height: 680px) {
+/* The Experience section fills + vertically centres on desktop only.
+   `min-height` (not a fixed height) means taller-than-viewport content
+   simply grows the section instead of being clipped by centring, so this
+   is safe at any desktop height. Phones / tablets (< 1024px) flow
+   naturally — nothing is forced to 100vh. */
+@media (min-width: 1024px) {
   .exp-shell {
     display: flex;
     min-height: 100vh;
