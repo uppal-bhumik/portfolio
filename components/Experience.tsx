@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useLenis } from "lenis/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import StackSection from "@/components/ui/StackSection";
 import AmpText from "@/components/ui/AmpText";
@@ -91,6 +92,7 @@ export default function Experience() {
   const [progress, setProgress] = useState(0); // 0..1 across the whole track
   const [pad, setPad] = useState(24); // inline gutter so end cards can centre
   const [interacted, setInteracted] = useState(false);
+  const lenis = useLenis();
 
   // Centre-gutter so the first and last cards can sit dead-centre too.
   const measure = useCallback(() => {
@@ -155,7 +157,13 @@ export default function Experience() {
   // Scroll-capture: while the section fills the viewport, a vertical scroll
   // first steps sideways through the cards, one per gesture. Only past the
   // last card (down) or before the first (up) does the page scroll onward.
+  // Lenis drives the page with its own momentum animation, so blocking the
+  // wheel event is not enough — we must halt Lenis itself while capturing,
+  // then restart it (transiently, so the page is never left frozen).
   const wheelLock = useRef(false);
+  const startTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -169,6 +177,12 @@ export default function Experience() {
         .matches &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Let the page scroll normally again — Lenis owns the page scroll.
+    const release = () => {
+      window.clearTimeout(startTimer.current);
+      lenis?.start();
+    };
+
     const onWheel = (e: WheelEvent) => {
       if (!enabled()) return;
       // Leave horizontal / trackpad side-swipes to native deck scrolling.
@@ -180,7 +194,10 @@ export default function Experience() {
       const vh = window.innerHeight;
       const rect = sec.getBoundingClientRect();
       const filling = rect.top <= 0 && rect.bottom >= vh - 1;
-      if (!filling) return;
+      if (!filling) {
+        release();
+        return;
+      }
 
       const dir = e.deltaY > 0 ? 1 : -1;
 
@@ -199,14 +216,22 @@ export default function Experience() {
       });
       const next = cur + dir;
 
-      // At an edge in this direction → let the event reach Lenis so the
-      // page scrolls on to the next / previous section.
-      if (next < 0 || next > experiences.length - 1) return;
+      // At an edge in this direction → restart Lenis (before its own bubble
+      // handler runs) so the page scrolls on to the next / previous section.
+      if (next < 0 || next > experiences.length - 1) {
+        release();
+        return;
+      }
 
-      // Otherwise swallow the scroll before Lenis sees it (capture phase +
-      // stopImmediatePropagation) and step exactly one card instead.
+      // Otherwise capture: block the native/Lenis wheel AND kill Lenis'
+      // momentum so the page can't glide past the pinned section. Restart
+      // Lenis shortly after so it's never left stopped (no scroll trap).
       e.preventDefault();
       e.stopImmediatePropagation();
+      lenis?.stop();
+      window.clearTimeout(startTimer.current);
+      startTimer.current = setTimeout(() => lenis?.start(), 720);
+
       if (wheelLock.current) return;
       wheelLock.current = true;
       scrollToIndex(next);
@@ -219,9 +244,12 @@ export default function Experience() {
       capture: true,
       passive: false,
     });
-    return () =>
+    return () => {
       window.removeEventListener("wheel", onWheel, { capture: true });
-  }, [scrollToIndex]);
+      window.clearTimeout(startTimer.current);
+      lenis?.start();
+    };
+  }, [scrollToIndex, lenis]);
 
   // Grab-and-slide with a mouse. Touch + trackpad scroll natively; a small
   // threshold tells a drag apart from a click on the YNU link.
