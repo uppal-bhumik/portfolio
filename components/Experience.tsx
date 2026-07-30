@@ -240,7 +240,7 @@ export default function Experience() {
                   className="snap-center shrink-0 w-[88vw] sm:w-[86vw] md:w-[76vw] lg:w-[min(72vw,980px)]"
                 >
                   <div
-                    className="relative isolate flex h-full flex-col overflow-hidden p-6 sm:p-7 md:p-9 text-white select-none transition-[filter,opacity,transform] duration-500"
+                    className="relative isolate flex h-full flex-col overflow-hidden p-5 sm:p-7 md:p-9 text-white select-none transition-[filter,opacity,transform] duration-500"
                     style={{
                       backgroundColor: accent,
                       backgroundImage: `radial-gradient(120% 90% at 12% 0%, ${bright}66 0%, ${bright}00 55%), linear-gradient(160deg, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.14) 100%)`,
@@ -252,8 +252,7 @@ export default function Experience() {
                     {/* Oversized ghost index — editorial depth, clipped by card */}
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute -right-6 -bottom-16 z-0 font-display font-black leading-none text-white/[0.08] select-none"
-                      style={{ fontSize: "16rem" }}
+                      className="pointer-events-none absolute -right-4 -bottom-10 sm:-right-6 sm:-bottom-16 z-0 font-display font-black leading-none text-white/[0.08] select-none text-[10rem] sm:text-[16rem]"
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
@@ -264,36 +263,37 @@ export default function Experience() {
                     />
 
                     {/* meta */}
-                    <div className="relative z-10 flex items-center justify-between gap-4 font-display text-xs font-bold uppercase tracking-meta text-white/80">
+                    <div className="relative z-10 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 font-display text-xs font-bold uppercase tracking-meta text-white/80">
                       <span className="inline-flex items-center gap-3">
                         <span className="flex h-6 items-center rounded-full border border-white/40 px-2.5 text-[11px] text-white">
                           {exp.tag}
                         </span>
                       </span>
-                      <span>{exp.duration}</span>
+                      <span className="text-[10px] sm:text-xs">{exp.duration}</span>
                     </div>
 
                     {/* title */}
-                    <h3 className="relative z-10 mt-5 font-display font-black tracking-[-0.02em] leading-[1.03] text-2xl sm:text-3xl md:text-4xl">
+                    <h3 className="relative z-10 mt-4 sm:mt-5 font-display font-black tracking-[-0.02em] leading-[1.08] text-xl sm:text-3xl md:text-4xl">
                       <AmpText text={exp.role} />
                     </h3>
-                    <p className="relative z-10 mt-2.5 font-display text-sm font-bold">
+                    <p className="relative z-10 mt-2 sm:mt-2.5 font-display text-[13px] sm:text-sm font-bold">
                       {exp.company}{" "}
                       <span className="font-semibold text-white/85">
                         — {exp.location}
                       </span>
                     </p>
 
-                    {/* body — two columns so the card reads wide, not tall */}
-                    <div className="relative z-10 mt-6 grid gap-6 md:gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-                      <p className="text-[15px] md:text-base leading-relaxed text-white/95">
+                    {/* body — two columns on desktop; mobile hides the long
+                        description to keep the card within a single screen */}
+                    <div className="relative z-10 mt-4 sm:mt-6 grid gap-6 md:gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                      <p className="hidden sm:block text-[15px] md:text-base leading-relaxed text-white/95">
                         {exp.description}
                       </p>
-                      <ul className="border-t border-white/25 md:border-t-0 md:border-l md:border-white/25 md:pl-8">
+                      <ul className="border-t border-white/25 sm:border-t md:border-t-0 md:border-l md:border-white/25 md:pl-8">
                         {exp.achievements.map((item, k) => (
                           <li
                             key={k}
-                            className="flex gap-3 py-2.5 text-[13.5px] leading-snug text-white/95"
+                            className="flex gap-3 py-2 sm:py-2.5 text-[12.5px] sm:text-[13.5px] leading-snug text-white/95"
                           >
                             <span className="font-display text-xs font-black text-white/60 pt-0.5">
                               {String(k + 1).padStart(2, "0")}
