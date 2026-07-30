@@ -209,10 +209,10 @@ export default function Experience() {
             <h2 className="font-display font-black tracking-[-0.02em] text-4xl md:text-5xl">
               Experience
             </h2>
-            <p className="font-display text-xs font-bold uppercase tracking-meta text-cyan-soft pb-1.5">
-              {String(active + 1).padStart(2, "0")} —{" "}
-              {String(experiences.length).padStart(2, "0")} · Univaegis &amp;
-              beyond
+            <p className="font-display font-black tracking-[-0.02em] text-cyan-soft pb-1 flex items-baseline gap-0.5 text-lg md:text-xl">
+              <span className="text-cyan-ink">{String(active + 1).padStart(2, "0")}</span>
+              <span className="text-cyan-ink/25 font-light mx-0.5">/</span>
+              <span>{String(experiences.length).padStart(2, "0")}</span>
             </p>
           </motion.div>
         </div>

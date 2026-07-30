@@ -47,7 +47,7 @@ export default function Hero() {
               <a
                 href="/bhumik_resume.pdf"
                 download="bhumik_resume.pdf"
-                className="px-7 py-3.5 bg-ink text-paper font-display text-sm font-bold uppercase tracking-meta hover:bg-ink-soft transition-colors duration-300"
+                className="px-7 py-3.5 bg-ink text-paper font-display text-sm font-bold uppercase tracking-meta hover:bg-ink-soft transition-colors duration-300 text-center"
               >
                 Download Résumé
               </a>
@@ -57,7 +57,7 @@ export default function Hero() {
                     .querySelector("#projects")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="px-7 py-3.5 border border-ink text-ink font-display text-sm font-bold uppercase tracking-meta hover:bg-ink hover:text-paper transition-colors duration-300"
+                className="px-7 py-3.5 border border-ink text-ink font-display text-sm font-bold uppercase tracking-meta hover:bg-ink hover:text-paper transition-colors duration-300 text-center"
               >
                 View Projects
               </button>
