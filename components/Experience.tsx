@@ -263,7 +263,7 @@ export default function Experience() {
                     />
 
                     {/* meta */}
-                    <div className="relative z-10 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 font-display text-xs font-bold uppercase tracking-meta text-white/80">
+                    <div className="relative z-10 flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4 font-display text-xs font-bold uppercase tracking-meta text-white/80">
                       <span className="inline-flex items-center gap-3">
                         <span className="flex h-6 items-center rounded-full border border-white/40 px-2.5 text-[11px] text-white">
                           {exp.tag}
